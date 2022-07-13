@@ -35,12 +35,13 @@ jobs:
       - setup_remote_docker :
           docker_layer_caching: true
       - checkout:
+          path: home/metrics
       - run: 
           name: install Deps
           command: |
             set -x
             apt -get updated
-            apt -get install npm, nano
+            apt -get install npm nano sudo 
       - run:
           name: Copy .env.example
           command: |

@@ -39,10 +39,10 @@ jobs:
           name: install Deps
           command: |
             set -x
-            apt -get updated
-            apt -get install npm nano sudo 
+            apt-get updated
+            apt-get install npm nano sudo 
       - run:
-          name: Copy .env.example
+          name: Copy env.example
           command: |
             ls -la
             cd /home/metrics/code-gov-github-metrics/code-gove-repo-metrics/

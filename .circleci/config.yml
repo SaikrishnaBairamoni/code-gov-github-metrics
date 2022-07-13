@@ -45,6 +45,8 @@ jobs:
           name: Copy env.example
           command: |
             ls -la
+            cd code-gov-github-metrics
+            ls -la 
             cd code-gov-github-metrics/code-gove-repo-metrics
             touch .env
             cp .env.example .env

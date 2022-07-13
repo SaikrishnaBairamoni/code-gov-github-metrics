@@ -50,6 +50,8 @@ jobs:
             ls -la
             pwd
             cd code-gov-repo-metrics
+            ls -la
+            pwd
             touch .env
             cp .env.example .env
       - run:

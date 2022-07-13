@@ -48,7 +48,8 @@ jobs:
             pwd
             cd code-gov-github-metrics
             ls -la
-            cd home/circleci/project/metrics/code-gov-github-metrics/code-gov-repo-metrics
+            pwd
+            cd code-gov-repo-metrics
             touch .env
             cp .env.example .env
       - run:

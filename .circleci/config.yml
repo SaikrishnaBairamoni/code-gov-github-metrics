@@ -34,7 +34,6 @@ jobs:
       #setup remote docker
       - setup_remote_docker :
           docker_layer_caching: true   
-      - checkout:
       - run: git clone https://github.com/SaikrishnaBairamoni/code-gov-github-metrics.git
       - run: 
           name: install Deps

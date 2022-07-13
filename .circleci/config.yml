@@ -26,6 +26,7 @@ jobs:
   build:
     # Pull docker image 
     # XTERM used for better make output
+   machine:         
     docker:
       - image: cimg/node:15.0.1
     resource_class: large

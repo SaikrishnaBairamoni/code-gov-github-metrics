@@ -39,7 +39,8 @@ jobs:
           name: install Deps
           command: |
             set -x
-            apt-get install npm nano sudo 
+            sudo apt-get update
+            sudo apt-get install npm nano sudo 
       - run:
           name: Copy env.example
           command: |

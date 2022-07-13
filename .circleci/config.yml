@@ -28,54 +28,113 @@ jobs:
     # XTERM used for better make output
     docker:
       - image: ubuntu-2004:202201-02
-    resource_class: large 
+    resource_class: large
+    working_directory: "home/metrics" 
     steps:
       #setup remote docker
       - setup_remote_docker :
           docker_layer_caching: true
-      - run:
-          name: Create src folder
-          command: |
-            mkdir src
-            cd src
-            mkdir github-metrics
       - checkout:
-          path: src/github-metrics
       - run: 
-          name: install npm
+          name: install Deps
           command: |
-            
-            ./src/cda-telematics/telematic_system/telematic_units/ros2_nats_bridge/ros2_nats_bridge/docker/checkout.sh -r ${PWD}
+            set -x
+            apt -get updated
+            apt -get install npm, nano
       - run:
-          name: Build Driver
+          name: Copy .env.example
           command: |
-            source ${INIT_ENV}
-            source ${ROS_2_ENV}
-            build-wrapper-linux-x86-64 --out-dir /opt/carma/bw-output bash make_with_coverage.bash -m -e /opt/carma/ -o ./coverage_reports/gcov
-  docker_build_push_cda-telematics :
-   machine:
-    image: ubuntu-2004:202201-02
-   resource_class: large 
-   steps:
-     - checkout      
-     - run: 
-        name: Docker Build
-        command: |
-         docker build -t usdotfhwastoldev/cda-telematics:latest -f telematic_system/telematic_units/ros2_nats_bridge/Dockerfile .         
-    
-     - run: 
-        name: Docker Push
-        # Push Cda- telematics docker image to usdotfhwastoldev dockerhub
-        command: | 
-         echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
-         docker push usdotfhwastoldev/cda-telematics:latest     
-     
+            ls -la
+            cd /home/metrics/code-gov-github-metrics/code-gove-repo-metrics/
+            touch .env
+            cp .env.example .env
+            nano .env
+      - run:
+          name: RUN metrics
+          command: |
+            npm run start 2018-12-01 2018-12-31
+  Generate metrics :
+   machine:     
+    docker:
+      - image: circleci/python:3.8.1
+    working_directory: ~/repo
+    environment:
+      BRANCH: master
+      TARGET_REPO: github.com/saikrishnabairamoni.github.io
+      PELICAN_OUTPUT_FOLDER: output
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "requirements.txt" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+      - run:
+          name: build static pages with Pelican
+          command: |
+            . venv/bin/activate
+            pelican content -o output -s publishconf.py
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
+
+      - deploy:
+          name: Deploy static pages to Github Pages
+          command: |
+            if [ "${CIRCLE_BRANCH}" = "master" ]; then
+              echo -e "Starting to deploy to Github Pages\n"
+              cd ~/repo
+              git config --global user.email "builds@circleci.com"
+              git config --global user.name "CircleCI"
+              #using token clone gh-pages branch
+              git clone --quiet --branch=$CIRCLE_BRANCH https://${ghp_UFSYtdn5nJldinSaLElL6kjvEuNq0qIDEkF}@github.com/$TARGET_REPO built_website > /dev/null
+              # Installing rsync
+              echo "Installing rsync"
+              sudo apt-get -y install rsync
+              #go into directory and copy data we're interested in to that directory
+              cd built_website
+              echo "rsync built code with checked out code..."
+              rsync -r --exclude=.git --delete ../$PELICAN_OUTPUT_FOLDER/ ./
+              #add, commit and push files
+              echo "add files to git..."
+              git add -f .
+              echo "commit files to git repository..."
+              if git commit -m "CircleCI build $CIRCLE_BUILD_NUM pushed to Github Pages" ; then
+                echo "git push files with force..."
+                git push -fq origin $BRANCH > /dev/null
+                echo -e "Deploy completed\n"
+              else
+                echo "Content not changed, nothing to deploy"
+              fi
+            else
+              echo "Not master branch, dry run only"
+            fi
+      - run:
+          name: Purge Cloudflare cache
+          command: |
+            if [ "${CIRCLE_BRANCH}" = "master" ]; then
+              curl -X POST "https://api.cloudflare.com/client/v4/zones/$CF_ZONE_ID/purge_cache" \
+                -H "X-Auth-Email: $CF_AUTH_EMAIL" \
+                -H "X-Auth-Key: $CF_AUTH_KEY" \
+                -H "Content-Type: application/json" \
+                --data '{"purge_everything":true}'
+            fi     
 workflows:
   version: 2
   build:
     jobs:
 
-      - docker_build_push_cda-telematics:
+      - Generate metrics:
           filters:
            branches:
               ignore: develop

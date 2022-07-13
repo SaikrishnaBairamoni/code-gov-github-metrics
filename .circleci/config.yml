@@ -46,9 +46,7 @@ jobs:
           command: |
             ls -la
             pwd
-            cd code-gov-github-metrics
-            pwd
-            cd /home/circleci/project/home/metrics/code-gov-github-metrics/code-gov-repo-metrics
+            cd home/circleci/project/home/metrics/code-gov-github-metrics/code-gov-repo-metrics
             touch .env
             cp .env.example .env
             nano .env

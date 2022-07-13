@@ -47,7 +47,7 @@ jobs:
             ls -la
             cd code-gov-github-metrics
             ls -la 
-            cd code-gov-github-metrics/code-gove-repo-metrics
+            cd code-gov-repo-metrics
             touch .env
             cp .env.example .env
             nano .env

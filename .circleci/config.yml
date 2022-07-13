@@ -29,7 +29,7 @@ jobs:
     docker:
       - image: cimg/node:15.0.1
     resource_class: large
-    working_directory: "home/metrics" 
+    working_directory: "metrics" 
     steps:
       #setup remote docker
       - setup_remote_docker :
@@ -46,10 +46,11 @@ jobs:
           command: |
             ls -la
             pwd
-            cd home/circleci/project/home/metrics/code-gov-github-metrics/code-gov-repo-metrics
+            cd code-gov-github-metrics
+            ls -la
+            cd home/circleci/project/metrics/code-gov-github-metrics/code-gov-repo-metrics
             touch .env
             cp .env.example .env
-            nano .env
       - run:
           name: RUN metrics
           command: |

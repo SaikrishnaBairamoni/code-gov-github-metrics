@@ -43,10 +43,7 @@
     "carma-lightbar-driver",
     "carma-freightliner-2012-controller-driver",
     "WxDE",
-    "c1t_razor_imu_m0_driver",
-    "c1t_rplidar_driver",
-    "c1t_vesc_driver",
-    "c1t_zed_driver"
+    "c1t_razor_imu_m0_driver"
 
   ]
 

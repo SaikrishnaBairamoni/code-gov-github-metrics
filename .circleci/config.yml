@@ -71,6 +71,8 @@ jobs:
    machine:     
     docker:
       - image: cimg/node:15.0.1
+    resource_class: large
+    working_directory: "traffic-metrics"   
     steps:
       - run: git clone -b master https://github.com/SaikrishnaBairamoni/some-github-metrics.git
       - run:

@@ -101,9 +101,4 @@ workflows:
   version: 2
   build:
     jobs:
-
-      - Generate github traffic-metrics:
-          filters:
-           branches:
-              ignore: develop
       - build

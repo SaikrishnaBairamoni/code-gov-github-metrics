@@ -52,8 +52,7 @@ jobs:
             cd code-gov-repo-metrics
             ls -la
             pwd
-            touch .env
-            cp .env.example .env
+            cat .env
       - run:
           name: RUN metrics
           command: |

@@ -73,9 +73,9 @@ jobs:
       - run:
           name: install python 3.7
           command: |
-            sudo apt-get update -y 
-            sudo apt-get install python3.7 -y 
-            sudo apt-get install pip -y
+            sudo apt-get -y -qq update
+            sudo apt-get install python-pip python-dev build-essential -y
+            #sudo apt-get install pip -y
             sudo python3.7 -m pip install --upgrade pip setuptools wheel -y 
             sudo python3.7 -m pip install pipenv -y 
       - run:

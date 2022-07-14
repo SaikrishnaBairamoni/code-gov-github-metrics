@@ -102,14 +102,12 @@ jobs:
             python3 export_traffic.py -t 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 -o usdot-fhwa-OPS
             python3 export_traffic.py -t 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 -o usdot-jpo-ode
 
-
-
 workflows:
   version: 2
   build:
     jobs:
 
-      - Generate metrics:
+      - Generate github traffic-metrics:
           filters:
            branches:
               ignore: develop

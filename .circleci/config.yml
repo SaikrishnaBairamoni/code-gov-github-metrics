@@ -38,6 +38,7 @@ jobs:
           name: install Deps
           command: |
             set -x
+            apt-get update
             apt-get install sudo -y
             sudo apt update && sudo apt upgrade -y
             sudo apt-get install nano sudo git npm

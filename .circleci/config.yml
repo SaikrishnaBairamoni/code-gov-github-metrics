@@ -40,7 +40,9 @@ jobs:
           command: |
             set -x
             sudo apt-get update
-            sudo apt-get install npm nano sudo 
+            sudo apt-get install nano sudo
+            sudo npm cache clean --force
+            sudo npm install -g npm@latest --force
       - run:
           name: Copy env.example
           command: |
@@ -57,9 +59,6 @@ jobs:
       - run:
           name: RUN metrics
           command: |
-            npm cache clean --force
-            sudo npm install -g npm@latest --force
-            sudo npm cache clean --force
             npm run start 2018-12-01 2018-12-31
   Generate metrics :
    machine:     

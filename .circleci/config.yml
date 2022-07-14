@@ -27,7 +27,7 @@ jobs:
     # Pull docker image 
     # XTERM used for better make output        
     docker:
-      - image: cimg/node:15.0.1
+      - image: circleci/classic:201808-01
     resource_class: large
     working_directory: "metrics" 
     steps:
@@ -89,8 +89,6 @@ jobs:
           command: |
             pwd 
             ls -la
-            sudo install python
-            sudo install pip
             python3 -m pip install pygithub
             python3 -m venv my-project-env
             pip install pandas

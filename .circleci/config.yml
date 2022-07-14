@@ -63,6 +63,7 @@ jobs:
             pwd
             cd code-gov-repo-metrics
             ls -la
+            sudo apt-get install dotenv
             npm run start 2018-12-01 2018-12-31
   Generate metrics :
    machine:     

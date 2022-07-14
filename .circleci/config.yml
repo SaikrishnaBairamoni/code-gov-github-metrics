@@ -40,7 +40,7 @@ jobs:
           command: |
             set -x
             sudo apt-get update
-            sudo apt-get install nano sudo
+            sudo apt-get install nano sudo dotenv
       - run:
           name: Copy env.example
           command: |
@@ -63,7 +63,6 @@ jobs:
             pwd
             cd code-gov-repo-metrics
             ls -la
-            sudo apt-get install dotenv
             npm run start 2018-12-01 2018-12-31
   Generate metrics :
    machine:     

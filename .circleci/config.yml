@@ -85,7 +85,7 @@ jobs:
             ls -la
             cd some-github-metrics
             python3 -m pip install pygithub    
-            sudo apt-get -y install  python3.8-venv python3-venv
+            sudo apt-get -y install python3.8 python3-venv
             python3 -m venv my-project-env
             source my-project-env/bin/activate
             pip install pandas 

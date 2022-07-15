@@ -83,7 +83,7 @@ jobs:
           command: |
             pwd 
             ls -la
-            python3 -m pip install pygithub -y
+            python3 -m pip install pygithub 
             sudo apt install python3.10-venv -y
             python3 -m venv my-project-env 
             pip install pandas -y

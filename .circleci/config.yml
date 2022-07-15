@@ -83,8 +83,8 @@ jobs:
           command: |
             pwd 
             ls -la
-            python3 -m pip install pygithub -y
-            python3 -m venv my-project-env -y
+            python3 -m pip install pygithub 
+            python3 -m venv my-project-env 
             pip install pandas -y
             pip install -r requirements.txt 
       - run:

@@ -89,6 +89,7 @@ jobs:
             python3 -m venv my-project-env
             source my-project-env/bin/activate
             pip install pandas 
+            pip install numpy
             ls -la
             pwd
             pip install -r requirements.txt 

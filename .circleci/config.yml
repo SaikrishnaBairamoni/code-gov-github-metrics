@@ -74,12 +74,14 @@ jobs:
           name: install python 3.8.10
           command: |
             sudo apt-get -y -qq update
-            #sudo apt install software-properties-common -y
-            #sudo sudo add-apt-repository ppa:deadsnakes/ppa -y
-            #sudo add-apt-repository universe
-            #sudo apt-add-repository ‘deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main’
-            sudo apt-get install python3-dev libffi-dev build-essential git
-            sudo apt update
+            sudo apt-get install build-essential checkinstall
+            sudo apt-get install libreadline-gplv2-dev libncursesw5-dev libssl-dev \libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev
+            cd /opt
+            sudo wget https://www.python.org/ftp/python/3.8.12/Python-3.8.12.tgz
+            sudo tar xzf Python-3.8.12.tgz
+            cd Python-3.8.12
+            sudo ./configure --enable-optimizations
+            sudo make altinstall
             #sudo apt install python3.8 -y
             sudo apt install python3-pip -y
             #sudo apt install pip -y

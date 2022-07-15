@@ -84,7 +84,7 @@ jobs:
             pwd 
             ls -la
             python3 -m pip install pygithub 
-            sudo apt install python3.10-venv -y
+            sudo apt install python3.10-venv 
             python3 -m venv my-project-env 
             pip install pandas -y
             pip install -r requirements.txt 

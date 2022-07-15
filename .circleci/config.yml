@@ -74,9 +74,9 @@ jobs:
           name: install python 3.8.10
           command: |
             sudo apt-get -y -qq update
-            sudo apt install software-properties-common
+            sudo apt install software-properties-common -y
             sudo sudo add-apt-repository ppa:deadsnakes/ppa
-            sudo apt -y install python3.8 
+            sudo apt install python3.8 -y
             sudo apt install pip -y
             #sudo apt-get install python3-pip python- build-essential -y
             #sudo apt-get install pip -y

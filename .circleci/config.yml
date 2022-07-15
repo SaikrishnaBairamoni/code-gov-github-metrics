@@ -75,7 +75,7 @@ jobs:
           command: |
             cd some-github-metrics
             sudo apt-get -y -qq update
-            sudo apt-get install python3.8-pip python-dev-is-python3.8 build-essential -y
+            sudo apt-get install python3-pip python-dev-is-python3 build-essential -y
             #sudo apt-get install pip -y
             #sudo python3 -m pip install --upgrade pip setuptools wheel -y 
             #sudo python3. -m pip install pipenv -y 

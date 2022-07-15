@@ -73,6 +73,7 @@ jobs:
       - run:
           name: install python 3.7
           command: |
+            cd some-github-metrics
             sudo apt-get -y -qq update
             sudo apt-get install python3-pip python-dev-is-python3 build-essential -y
             #sudo apt-get install pip -y
@@ -89,7 +90,6 @@ jobs:
             python3 -m venv my-project-env
             source my-project-env/bin/activate
             pip install pandas 
-            pip install numpy
             ls -la
             pwd
             pip install -r requirements.txt 

@@ -76,6 +76,8 @@ jobs:
             sudo apt-get -y -qq update
             sudo apt install software-properties-common -y
             sudo sudo add-apt-repository ppa:deadsnakes/ppa -y
+            touch .env
+            cp ENV DEBIAN_FRONTEND=noninteractive .env
             sudo ENV DEBIAN_FRONTEND=noninteractive apt install python3.8 -y 
             sudo apt install pip -y
             #sudo apt-get install python3-pip python- build-essential -y

@@ -78,8 +78,9 @@ jobs:
             #sudo sudo add-apt-repository ppa:deadsnakes/ppa -y
             #sudo add-apt-repository universe
             sudo apt-add-repository ‘deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main’
+            sudo apt-get install python3-dev libffi-dev build-essential git
             sudo apt update
-            sudo apt install python3.8 -y
+            #sudo apt install python3.8 -y
             sudo apt install python3-pip -y
             #sudo apt install pip -y
             #sudo apt-get install python3-pip python-3 build-essential -y

@@ -113,18 +113,18 @@ jobs:
             ls -la
             cd some-github-metrics
             pip install pandas 
-            python3 github_metrics.py -t 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 -o usdot-fhwa-stol
-            python3 github_metrics.py -t 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 -o usdot-fhwa-OPS
-            python3 github_metrics.py -t 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 -o usdot-jpo-ode
+            python3 github_metrics.py -t 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 -o usdot-fhwa-stol
+            python3 github_metrics.py -t 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 -o usdot-fhwa-OPS
+            python3 github_metrics.py -t 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 -o usdot-jpo-ode
       - run:
           name: RUN traffic metrics
           command: |
             pwd
             ls -la
             cd some-github-metrics
-            python3 export_traffic.py -t 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 -o usdot-fhwa-stol
-            python3 export_traffic.py -t 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 -o usdot-fhwa-OPS
-            python3 export_traffic.py -t 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 -o usdot-jpo-ode
+            python3 export_traffic.py -t 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 -o usdot-fhwa-stol
+            python3 export_traffic.py -t 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 -o usdot-fhwa-OPS
+            python3 export_traffic.py -t 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 -o usdot-jpo-ode
 
 workflows:
   version: 2

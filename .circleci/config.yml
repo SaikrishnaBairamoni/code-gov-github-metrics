@@ -41,7 +41,7 @@ jobs:
           command: |
             set -x
             sudo apt-get update -y && sudo apt-get upgrade -y
-            echo GITHUB_TOKEN="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" >> "${BASH_ENV}"
+            #echo GITHUB_TOKEN="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" >> "${BASH_ENV}"
             sudo apt-get install sudo -y
             sudo apt-get install git wget tar npm -y
             #sudo apt install build-essential libssl-dev zlib1g-dev libncurses5-dev libncursesw5-dev libreadline-dev libsqlite3-dev libgdbm-dev libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev tk-dev libffi-dev -y
@@ -116,18 +116,18 @@ jobs:
             ls -la
             cd some-github-metrics
             pip install pandas 
-            python3 github_metrics.py -t ${BASH_ENV} -o usdot-fhwa-stol
-            python3 github_metrics.py -t ${BASH_ENV} -o usdot-fhwa-OPS
-            python3 github_metrics.py -t ${BASH_ENV} -o usdot-jpo-ode
+            python3 github_metrics.py -t ${GITHUB_TOKEN} -o usdot-fhwa-stol
+            python3 github_metrics.py -t ${GITHUB_TOKEN} -o usdot-fhwa-OPS
+            python3 github_metrics.py -t ${GITHUB_TOKEN} -o usdot-jpo-ode
       - run:
           name: RUN traffic metrics
           command: |
             pwd
             ls -la
             cd some-github-metrics
-            python3 export_traffic.py -t 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 -o usdot-fhwa-stol
-            python3 export_traffic.py -t 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 -o usdot-fhwa-OPS
-            python3 export_traffic.py -t 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 -o usdot-jpo-ode
+            python3 export_traffic.py -t ${GITHUB_TOKEN} -o usdot-fhwa-stol
+            python3 export_traffic.py -t ${GITHUB_TOKEN} -o usdot-fhwa-OPS
+            python3 export_traffic.py -t ${GITHUB_TOKEN} -o usdot-jpo-ode
 
 workflows:
   version: 2

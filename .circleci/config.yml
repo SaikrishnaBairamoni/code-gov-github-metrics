@@ -112,6 +112,7 @@ jobs:
             pwd
             ls -la
             cd some-github-metrics
+            pip install pandas 
             python3 github_metrics.py -t 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 -o usdot-fhwa-stol
             python3 github_metrics.py -t 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 -o usdot-fhwa-OPS
             python3 github_metrics.py -t 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 -o usdot-jpo-ode

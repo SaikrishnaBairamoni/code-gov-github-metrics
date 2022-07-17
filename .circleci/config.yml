@@ -83,7 +83,7 @@ jobs:
             #cd Python-3.8.12
             #sudo ./configure --enable-optimizations
             #sudo make altinstall
-            #sudo apt install python3.8 -y
+            sudo apt install python3.8 -y
             sudo apt install python3-pip -y
             #sudo apt install pip -y
             #sudo apt-get install python3-pip python-3 build-essential -y

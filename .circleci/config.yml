@@ -27,9 +27,10 @@ jobs:
     # Pull docker image 
     # XTERM used for better make output        
     docker:
-      - image: cimg/python:3.8.10-node
+      - image: cimg/python:3.8.10-node  
     environment:
       TERM: xterm  
+    parallelism: 4  
     resource_class: large
     working_directory: "metrics" 
     steps:
@@ -70,7 +71,7 @@ jobs:
             ls -la
             npm install dotenv
             npm audit fix
-            npm run start 2022-06-01 2022-06-31
+            #npm run start 2022-06-01 2022-06-31
       - run: git clone -b master https://github.com/SaikrishnaBairamoni/some-github-metrics.git
       - run:
           name: install python 3.8.10
@@ -79,7 +80,7 @@ jobs:
             sudo apt-get -y install build-essential checkinstall
             sudo apt-get -y install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev libffi-dev
             sudo apt install python3.8 -y
-            sudo apt install python3-pip -y
+            sudo python3.8 -m pip install --upgrade pip
       - run:
           name: create virtual env
           command: |
@@ -103,19 +104,19 @@ jobs:
             ls -la
             cd some-github-metrics
             pip install pandas 
-            GITHUB_TOKEN= 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
-            python3 github_metrics.py -t ${GITHUB_TOKEN} -o usdot-fhwa-stol
-            python3 github_metrics.py -t ${GITHUB_TOKEN} -o usdot-fhwa-OPS
-            python3 github_metrics.py -t ${GITHUB_TOKEN} -o usdot-jpo-ode
+            #GITHUB_TOKEN= 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
+            #python3 github_metrics.py -t ${GITHUB_TOKEN} -o usdot-fhwa-stol
+            #python3 github_metrics.py -t ${GITHUB_TOKEN} -o usdot-fhwa-OPS
+            #python3 github_metrics.py -t ${GITHUB_TOKEN} -o usdot-jpo-ode
       - run:
           name: RUN traffic metrics
           command: |
             pwd
             ls -la
             cd some-github-metrics
-            python3 export_traffic.py -t ${GITHUB_TOKEN} -o usdot-fhwa-stol
-            python3 export_traffic.py -t ${GITHUB_TOKEN} -o usdot-fhwa-OPS
-            python3 export_traffic.py -t ${GITHUB_TOKEN} -o usdot-jpo-ode
+            #python3 export_traffic.py -t ${GITHUB_TOKEN} -o usdot-fhwa-stol
+            #python3 export_traffic.py -t ${GITHUB_TOKEN} -o usdot-fhwa-OPS
+            #python3 export_traffic.py -t ${GITHUB_TOKEN} -o usdot-jpo-ode
 
 workflows:
   version: 2

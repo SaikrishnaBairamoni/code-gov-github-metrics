@@ -47,7 +47,10 @@ jobs:
           command: |
             ls -la
             pwd
-            cd code-gov-github-metrics && cd code-gov-repo-metrics
+            cd code-gov-github-metrics
+            ls -la
+            pwd
+            cd code-gov-repo-metrics
             ls -la
             pwd
             cp .env.example .env
@@ -57,8 +60,10 @@ jobs:
           name: RUN metrics
           command: |
             pwd
-            cd code-gov-github-metrics && cd code-gov-repo-metrics
+            cd code-gov-github-metrics 
+            cd code-gov-repo-metrics
             ls -la
+            pwd
             npm install dotenv
             npm audit fix
             npm fund

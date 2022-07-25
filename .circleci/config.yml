@@ -80,7 +80,6 @@ jobs:
             sudo apt-get -y install build-essential checkinstall
             sudo apt-get -y install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev libffi-dev
             sudo apt install python3.8 -y
-            sudo python3.8 -m pip install --upgrade pip
       - run:
           name: create virtual env
           command: |
@@ -92,6 +91,7 @@ jobs:
             python3 -m venv my-project-env
             source my-project-env/bin/activate
             pip install pandas 
+            sudo pip install --upgrade pip
             python -m pip install tensorflow
             ls -la
             pwd

@@ -13,6 +13,7 @@ version: 2
 #  License for the specific language governing permissions and limitations under
 #  the License.
 # 
+
 # Configuration file for Circle CI 
 # CI will report failure if any executed command returns and error status
 # Operations performed are as follows
@@ -26,9 +27,11 @@ jobs:
     # Pull docker image 
     # XTERM used for better make output        
     docker:
+      - image: cimg/python:3.8.10-node  
       - image: cimg/python:3.8.10-node
     environment:
       TERM: xterm  
+    parallelism: 1  
     resource_class: large
     working_directory: "metrics" 
     steps:
@@ -40,8 +43,10 @@ jobs:
           command: |
             set -x
             sudo apt-get update -y && sudo apt-get upgrade -y
-            echo GITHUB_TOKEN="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" >> "${BASH_ENV}"
-            sudo apt-get install sudo git wget tar npm -y
+            echo GITHUB_TOKEN="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" >> "${BASH_ENV}"          
+            sudo apt-get install sudo -y
+            sudo apt-get install git wget tar npm -y
+      - run: git clone -b ci_setup https://github.com/SaikrishnaBairamoni/code-gov-github-metrics.git 
       - run:
           name: Copy env.example
           command: |
@@ -60,13 +65,13 @@ jobs:
           name: RUN metrics
           command: |
             pwd
-            cd code-gov-github-metrics 
-            cd code-gov-repo-metrics
+            cd code-gov-github-metrics
             ls -la
             pwd
+            cd code-gov-repo-metrics
+            ls -la
             npm install dotenv
             npm audit fix
-            npm fund
             #npm run start 2022-06-01 2022-06-31
       - run: git clone -b master https://github.com/SaikrishnaBairamoni/some-github-metrics.git
       - run:
@@ -88,6 +93,7 @@ jobs:
             python3 -m venv my-project-env
             source my-project-env/bin/activate
             pip install pandas 
+            sudo pip install --upgrade pip
             python3 -m pip install --upgrade pip
             python -m pip install tensorflow
             ls -la
@@ -109,9 +115,9 @@ jobs:
             pwd
             ls -la
             cd some-github-metrics
-            python3 export_traffic.py -t ${BASH_ENV} -o usdot-fhwa-stol
-            python3 export_traffic.py -t ${BASH_ENV} -o usdot-fhwa-OPS
-            python3 export_traffic.py -t ${BASH_ENV} -o usdot-jpo-ode
+            python3 export_traffic.py -t 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 -o usdot-fhwa-stol
+            python3 export_traffic.py -t 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 -o usdot-fhwa-OPS
+            python3 export_traffic.py -t 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 -o usdot-jpo-ode
 workflows:
   version: 2
   build:

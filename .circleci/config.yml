@@ -30,7 +30,7 @@ jobs:
       - image: cimg/python:3.8.10-node  
     environment:
       TERM: xterm  
-    parallelism: 4  
+    parallelism: 1  
     resource_class: large
     working_directory: "metrics" 
     steps:
@@ -92,7 +92,6 @@ jobs:
             python3 -m venv my-project-env
             source my-project-env/bin/activate
             pip install pandas 
-            python3 -m pip install --upgrade pip
             python -m pip install tensorflow
             ls -la
             pwd
@@ -104,7 +103,6 @@ jobs:
             ls -la
             cd some-github-metrics
             pip install pandas 
-            #GITHUB_TOKEN= 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
             #python3 github_metrics.py -t ${GITHUB_TOKEN} -o usdot-fhwa-stol
             #python3 github_metrics.py -t ${GITHUB_TOKEN} -o usdot-fhwa-OPS
             #python3 github_metrics.py -t ${GITHUB_TOKEN} -o usdot-jpo-ode

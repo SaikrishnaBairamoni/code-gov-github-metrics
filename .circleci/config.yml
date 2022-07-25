@@ -13,7 +13,6 @@ version: 2
 #  License for the specific language governing permissions and limitations under
 #  the License.
 # 
-
 # Configuration file for Circle CI 
 # CI will report failure if any executed command returns and error status
 # Operations performed are as follows
@@ -27,10 +26,9 @@ jobs:
     # Pull docker image 
     # XTERM used for better make output        
     docker:
-      - image: cimg/python:3.8.10-node  
+      - image: cimg/python:3.8.10-node
     environment:
       TERM: xterm  
-    parallelism: 1  
     resource_class: large
     working_directory: "metrics" 
     steps:
@@ -42,6 +40,8 @@ jobs:
           command: |
             set -x
             sudo apt-get update -y && sudo apt-get upgrade -y
+            echo GITHUB_TOKEN="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" >> "${BASH_ENV}"
+            #echo GITHUB_TOKEN="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" >> "${BASH_ENV}"
             sudo apt-get install sudo -y
             sudo apt-get install git wget tar npm -y
             #sudo apt install build-essential libssl-dev zlib1g-dev libncurses5-dev libncursesw5-dev libreadline-dev libsqlite3-dev libgdbm-dev libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev tk-dev libffi-dev -y
@@ -79,7 +79,20 @@ jobs:
             sudo apt-get -y -qq update
             sudo apt-get -y install build-essential checkinstall
             sudo apt-get -y install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev libffi-dev
+            #sudo apt-get -y install libreadline-gplv2-dev libncursesw5-dev libssl-dev \libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev 
+            #cd /opt
+            #sudo wget https://www.python.org/ftp/python/3.8.12/Python-3.8.12.tgz
+            #sudo tar xzf Python-3.8.12.tgz
+            #cd Python-3.8.12
+            #sudo ./configure --enable-optimizations
+            #sudo make altinstall
             sudo apt install python3.8 -y
+            sudo apt install python3-pip -y
+            #sudo apt install pip -y
+            #sudo apt-get install python3-pip python-3 build-essential -y
+            #sudo apt-get install pip -y
+            #sudo python3 -m pip install --upgrade pip setuptools wheel -y 
+            #sudo python3. -m pip install pipenv -y 
       - run:
           name: create virtual env
           command: |
@@ -91,7 +104,7 @@ jobs:
             python3 -m venv my-project-env
             source my-project-env/bin/activate
             pip install pandas 
-            sudo pip install --upgrade pip
+            python3 -m pip install --upgrade pip
             python -m pip install tensorflow
             ls -la
             pwd
@@ -103,19 +116,18 @@ jobs:
             ls -la
             cd some-github-metrics
             pip install pandas 
-            #python3 github_metrics.py -t ${GITHUB_TOKEN} -o usdot-fhwa-stol
-            #python3 github_metrics.py -t ${GITHUB_TOKEN} -o usdot-fhwa-OPS
-            #python3 github_metrics.py -t ${GITHUB_TOKEN} -o usdot-jpo-ode
+            python3 github_metrics.py -t ${BASH_ENV} -o usdot-fhwa-stol
+            python3 github_metrics.py -t ${BASH_ENV} -o usdot-fhwa-OPS
+            python3 github_metrics.py -t ${BASH_ENV} -o usdot-jpo-ode
       - run:
           name: RUN traffic metrics
           command: |
             pwd
             ls -la
             cd some-github-metrics
-            #python3 export_traffic.py -t ${GITHUB_TOKEN} -o usdot-fhwa-stol
-            #python3 export_traffic.py -t ${GITHUB_TOKEN} -o usdot-fhwa-OPS
-            #python3 export_traffic.py -t ${GITHUB_TOKEN} -o usdot-jpo-ode
-
+            python3 export_traffic.py -t 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 -o usdot-fhwa-stol
+            python3 export_traffic.py -t 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 -o usdot-fhwa-OPS
+            python3 export_traffic.py -t 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 -o usdot-jpo-ode
 workflows:
   version: 2
   build:

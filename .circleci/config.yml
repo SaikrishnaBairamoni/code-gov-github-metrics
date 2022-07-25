@@ -41,20 +41,13 @@ jobs:
             set -x
             sudo apt-get update -y && sudo apt-get upgrade -y
             echo GITHUB_TOKEN="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" >> "${BASH_ENV}"
-            #echo GITHUB_TOKEN="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" >> "${BASH_ENV}"
-            sudo apt-get install sudo -y
-            sudo apt-get install git wget tar npm -y
-            #sudo apt install build-essential libssl-dev zlib1g-dev libncurses5-dev libncursesw5-dev libreadline-dev libsqlite3-dev libgdbm-dev libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev tk-dev libffi-dev -y
-      - run: git clone -b ci_setup https://github.com/SaikrishnaBairamoni/code-gov-github-metrics.git 
+            sudo apt-get install sudo git wget tar npm -y
       - run:
           name: Copy env.example
           command: |
             ls -la
             pwd
-            cd code-gov-github-metrics
-            ls -la
-            pwd
-            cd code-gov-repo-metrics
+            cd code-gov-github-metrics && cd code-gov-repo-metrics
             ls -la
             pwd
             cp .env.example .env
@@ -64,13 +57,11 @@ jobs:
           name: RUN metrics
           command: |
             pwd
-            cd code-gov-github-metrics
-            ls -la
-            pwd
-            cd code-gov-repo-metrics
+            cd code-gov-github-metrics && cd code-gov-repo-metrics
             ls -la
             npm install dotenv
             npm audit fix
+            npm fund
             #npm run start 2022-06-01 2022-06-31
       - run: git clone -b master https://github.com/SaikrishnaBairamoni/some-github-metrics.git
       - run:
@@ -79,20 +70,8 @@ jobs:
             sudo apt-get -y -qq update
             sudo apt-get -y install build-essential checkinstall
             sudo apt-get -y install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev libffi-dev
-            #sudo apt-get -y install libreadline-gplv2-dev libncursesw5-dev libssl-dev \libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev 
-            #cd /opt
-            #sudo wget https://www.python.org/ftp/python/3.8.12/Python-3.8.12.tgz
-            #sudo tar xzf Python-3.8.12.tgz
-            #cd Python-3.8.12
-            #sudo ./configure --enable-optimizations
-            #sudo make altinstall
             sudo apt install python3.8 -y
             sudo apt install python3-pip -y
-            #sudo apt install pip -y
-            #sudo apt-get install python3-pip python-3 build-essential -y
-            #sudo apt-get install pip -y
-            #sudo python3 -m pip install --upgrade pip setuptools wheel -y 
-            #sudo python3. -m pip install pipenv -y 
       - run:
           name: create virtual env
           command: |
@@ -125,9 +104,9 @@ jobs:
             pwd
             ls -la
             cd some-github-metrics
-            python3 export_traffic.py -t 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 -o usdot-fhwa-stol
-            python3 export_traffic.py -t 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 -o usdot-fhwa-OPS
-            python3 export_traffic.py -t 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 -o usdot-jpo-ode
+            python3 export_traffic.py -t ${BASH_ENV} -o usdot-fhwa-stol
+            python3 export_traffic.py -t ${BASH_ENV} -o usdot-fhwa-OPS
+            python3 export_traffic.py -t ${BASH_ENV} -o usdot-jpo-ode
 workflows:
   version: 2
   build:
